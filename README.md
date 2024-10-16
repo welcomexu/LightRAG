@@ -1,4 +1,4 @@
-<center><h2>🚀 LightRAG: Simple and Fast Retrieval-Augmented Generation</h2></center>
+# LightRAG: Simple and Fast Retrieval-Augmented Generation
 
 
 ![请添加图片描述](https://i-blog.csdnimg.cn/direct/567139f1a36e4564abc63ce5c12b6271.jpeg)
@@ -20,9 +20,6 @@ This repository hosts the code of LightRAG. The structure of this code is based 
 ![请添加图片描述](https://i-blog.csdnimg.cn/direct/b2aaf634151b4706892693ffb43d9093.png)
 </div>
 
-## 🎉 News 
-- [x] [2024.10.15]🎯🎯📢📢LightRAG now supports Hugging Face models! 
-
 ## Install
 
 * Install from source
@@ -38,27 +35,17 @@ pip install lightrag-hku
 
 ## Quick Start
 
-* Set OpenAI API key in environment if using OpenAI models: `export OPENAI_API_KEY="sk-...".`
-* Download the demo text "A Christmas Carol by Charles Dickens":
+* Set OpenAI API key in environment: `export OPENAI_API_KEY="sk-...".`
+* Download the demo text "A Christmas Carol by Charles Dickens" 
 ```bash
 curl https://raw.githubusercontent.com/gusye1234/nano-graphrag/main/tests/mock_data.txt > ./book.txt
 ```
-Use the below Python snippet to initialize LightRAG and perform queries:
+Use the below python snippet:
 
 ```python
 from lightrag import LightRAG, QueryParam
-from lightrag.llm import gpt_4o_mini_complete, gpt_4o_complete
 
-WORKING_DIR = "./dickens"
-
-if not os.path.exists(WORKING_DIR):
-    os.mkdir(WORKING_DIR)
-
-rag = LightRAG(
-    working_dir=WORKING_DIR,
-    llm_model_func=gpt_4o_mini_complete  # Use gpt_4o_mini_complete LLM model
-    # llm_model_func=gpt_4o_complete  # Optionally, use a stronger model
-)
+rag = LightRAG(working_dir="./dickens")
 
 with open("./book.txt") as f:
     rag.insert(f.read())
@@ -72,41 +59,16 @@ print(rag.query("What are the top themes in this story?", param=QueryParam(mode=
 # Perform global search
 print(rag.query("What are the top themes in this story?", param=QueryParam(mode="global")))
 
-# Perform hybrid search
-print(rag.query("What are the top themes in this story?", param=QueryParam(mode="hybrid")))
+# Perform hybird search
+print(rag.query("What are the top themes in this story?", param=QueryParam(mode="hybird")))
 ```
-### Using Hugging Face Models
-If you want to use Hugging Face models, you only need to set LightRAG as follows:
+Batch Insert
 ```python
-from lightrag.llm import hf_model_complete, hf_embedding
-from transformers import AutoModel, AutoTokenizer
-
-# Initialize LightRAG with Hugging Face model
-rag = LightRAG(
-    working_dir=WORKING_DIR,
-    llm_model_func=hf_model_complete,  # Use Hugging Face complete model for text generation
-    llm_model_name='meta-llama/Llama-3.1-8B-Instruct',  # Model name from Hugging Face
-    # Use Hugging Face embedding function
-    embedding_func=EmbeddingFunc(
-        embedding_dim=384,
-        max_token_size=5000,
-        func=lambda texts: hf_embedding(
-            texts, 
-            tokenizer=AutoTokenizer.from_pretrained("sentence-transformers/all-MiniLM-L6-v2"),
-            embed_model=AutoModel.from_pretrained("sentence-transformers/all-MiniLM-L6-v2")
-        )
-    ),
-)
-```
-### Batch Insert
-```python
-# Batch Insert: Insert multiple texts at once
 rag.insert(["TEXT1", "TEXT2",...])
 ```
-### Incremental Insert
+Incremental Insert
 
 ```python
-# Incremental Insert: Insert new documents into an existing LightRAG instance
 rag = LightRAG(working_dir="./dickens")
 
 with open("./newText.txt") as f:
@@ -318,7 +280,6 @@ def extract_queries(file_path):
 
     return queries
 ```
-
 ## Code Structure
 
 ```python
@@ -326,8 +287,8 @@ def extract_queries(file_path):
 ├── examples
 │   ├── batch_eval.py
 │   ├── generate_query.py
-│   ├── lightrag_openai_demo.py
-│   └── lightrag_hf_demo.py
+│   ├── insert.py
+│   └── query.py
 ├── lightrag
 │   ├── __init__.py
 │   ├── base.py
@@ -347,17 +308,6 @@ def extract_queries(file_path):
 ├── requirements.txt
 └── setup.py
 ```
-
-## Star History
-
-<a href="https://star-history.com/#HKUDS/LightRAG&Date">
- <picture>
-   <source media="(prefers-color-scheme: dark)" srcset="https://api.star-history.com/svg?repos=HKUDS/LightRAG&type=Date&theme=dark" />
-   <source media="(prefers-color-scheme: light)" srcset="https://api.star-history.com/svg?repos=HKUDS/LightRAG&type=Date" />
-   <img alt="Star History Chart" src="https://api.star-history.com/svg?repos=HKUDS/LightRAG&type=Date" />
- </picture>
-</a>
-
 ## Citation
 
 ```python
