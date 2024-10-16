@@ -1,0 +1,5 @@
+Alice 和 Bob 是朋友。他们经常一起去镇上的咖啡馆。
+Bob 是 Charlie 的同事，他们一起在镇上的图书馆工作。
+Charlie 是 Diana 的兄弟。Diana 是一个医生，在镇上的医院工作。
+Alice 的朋友 Eve 是 Diana 的病人。
+Eve 和 Frank 是夫妻。Frank 是一个警察，在镇上巡逻。

@@ -1,0 +1,4 @@
+.env
+.idea/
+dickens/
+lightrag/__pycache__/
